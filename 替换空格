@@ -1,0 +1,31 @@
+package com.fairy;
+
+/**
+ * 请实现一个函数，将一个字符串中的每个空格替换成“%20”。
+ * 例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
+ * Author:gagayu
+ * Created:2019/3/16
+ */
+public class Test1 {
+    //解法一
+    public String replaceSpace(StringBuffer str) {
+        StringBuffer sb=new StringBuffer();
+        String tmp=str.toString();
+        char[] chars=tmp.toCharArray();
+        for(int i=0,j=chars.length;i<j;i++){
+            if(chars[i]==' '){
+                sb.append("%20");
+            }else{
+                sb.append(chars[i]);
+            }
+
+
+        }
+        return sb.toString();
+    }
+
+    //解法二：直接调用库函数replaAll(),但不符合出题人题意
+    //return str.toString().repalceAll(" ","%20");
+
+
+}
