@@ -1,0 +1,33 @@
+package fairy.yule;
+
+import java.util.ArrayList;
+
+/**
+ * 输入一个整数数组，实现一个函数来调整该数组中数字的顺序，
+ * 使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
+ * Author:gagayu
+ * Created:2019/3/18
+ */
+public class test1 {
+    public void reOrderArray(int [] array) {
+        ArrayList<Integer> order=new ArrayList<>();
+        ArrayList<Integer> even=new ArrayList<>();
+
+        for(int i=0,j=array.length;i<j;i++){
+            if(array[i]%2==1){
+                order.add(array[i]);
+            }
+            else if(array[i]%2==0){
+                even.add(array[i]);
+            }
+        }
+        insertIn(order,array,0);
+        insertIn(even,array,order.size());
+    }
+
+    public void insertIn(ArrayList<Integer> list,int [] array,int index){
+        for(int i=0;i<list.size();i++){
+            array[i+index]=list.get(i);
+        }
+    }
+}
