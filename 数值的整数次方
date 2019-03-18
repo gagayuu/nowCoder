@@ -1,0 +1,26 @@
+public class Solution {
+    public double Power(double base, int exponent) {
+        double res=1;
+        int exp=exponent;
+       if(exp==0){
+           return 1;
+       }
+       if(exp<0){
+          exp=exponent*(-1);
+           if(base==0){
+               throw new RuntimeException("指数为负数时，底数不能为0");
+           }
+       }
+       while(exp!=0){
+           if((exp&1)==1){
+                   res*=base;
+             }
+                   base*=base;
+                   exp>>=1;
+               
+           }
+           
+       
+    return exponent>0?res:(1/res);
+  }
+}
