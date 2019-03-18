@@ -1,0 +1,44 @@
+ public boolean match(char[] str, char[] pattern) {
+        if (str == null || pattern == null) {
+            return false;
+        }
+        int sIndex = 0;
+        int pIndex = 0;
+
+        return coreMatch(str, sIndex, pattern, pIndex);
+    }
+
+    private boolean coreMatch(char[] str, int sIndex, char[] pattern, int pIndex) {
+
+
+        if (sIndex + 1 < str.length && pIndex + 1 < pattern.length && pattern[pIndex + 1] != '*') {
+            if ((sIndex != str.length && str[sIndex] == pattern[pIndex]) ||
+                    (sIndex != str.length && pattern[pIndex] == '.')) {
+                return coreMatch(str, sIndex + 1, pattern, pIndex + 1);
+            } else {
+                return false;
+            }
+        }
+
+        if (pIndex + 1 < pattern.length && pattern[pIndex + 1] == '*') {
+
+
+            if ((sIndex != str.length && str[sIndex] == pattern[pIndex]) ||
+                    (sIndex != str.length && pattern[pIndex] == '.')) {
+                return coreMatch(str, sIndex, pattern, pIndex + 2)//模式后移2，视为x*匹配0个字符
+                        || coreMatch(str, sIndex + 1, pattern, pIndex + 2)//视为模式匹配1个字符
+                        || coreMatch(str, sIndex + 1, pattern, pIndex);//*匹配1个，再匹配str中的下一个
+            }
+            return coreMatch(str, sIndex, pattern, pIndex + 2);
+
+        }
+        //str到尾，pattern到尾，这匹配成功
+        if (sIndex == str.length && pIndex == pattern.length) {
+            return true;
+        }
+        //pattern先到尾，匹配失败
+        if (sIndex != str.length && pIndex == pattern.length) {
+            return false;
+        }
+        return false;
+    }
