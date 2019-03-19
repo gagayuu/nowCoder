@@ -1,0 +1,41 @@
+package nowcoder.fairy;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ * 输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
+ * Author:gagayu
+ * Created:2019/3/19
+ */
+public class Test3 {
+    public static void main(String[] args) {
+        Test3 test3 = new Test3();
+        int[] input = new int[]{4, 5, 1, 6, 2, 7, 3, 8};
+        int k = 10;
+        test3.getLeastNumbers_Solution(input, k);
+
+    }
+    public ArrayList<Integer> getLeastNumbers_Solution(int [] input,int k){
+        if(k>input.length){
+            return new ArrayList<>();
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+        Arrays.sort(input);
+        for(int i=0;i<k;i++){
+            list.add(input[i]);
+        }
+        print(list);
+        return list;
+    }
+
+    public void print(ArrayList<Integer> list){
+        for(int i = 0;i < list.size();i++){
+            System.out.print(list.get(i));
+            if(i != list.size()-1){
+                System.out.print(",");
+            }
+        }
+
+    }
+}
