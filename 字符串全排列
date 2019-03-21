@@ -1,0 +1,75 @@
+package nowcoder.fairy;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * 输入一个字符串,按字典序打印出该字符串中字符的所有排列。
+ * 例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+ * Author:gagayu
+ * Created:2019/3/21
+ */
+
+
+/*
+*全排列算法，用递归的思想解决。
+* 对于与只有一个元素的集合，可以直接生成全排列，所以递归的出口是当元素只有一个。
+* 1、固定第一个字符a，排列bc
+* 2、当bc排列完成后，交换a与b位置，固定b为第一个字符，全排列ac
+* 3、...依次类推，方法就是固定第一个字符求后面字符的全排列。
+* 4、去重全排列：从第一个字符起，每一个字符与他后面非重复的字符交换。
+*/
+public class Test6 {
+    public ArrayList<String> Permutation(String str) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        char[] chars=str.toCharArray();
+        int left=0;
+        int right=chars.length-1;
+        CorePermuation(chars,arrayList,left,right);
+        Collections.sort(arrayList);
+
+        return arrayList;
+
+    }
+
+    public void CorePermuation(char[] ch, ArrayList<String> arrayList, int left, int right) {
+        if (left == right) {
+            arrayList.add(String.valueOf(ch));
+        } else {
+            Set<Character> set = new HashSet<>();
+
+            for (int i = left; i <= right; i++) {
+                if (i == left || !set.contains(ch[i])) {
+                    set.add(ch[i]);
+                    swap(ch, left, i);
+                    CorePermuation(ch, arrayList, left + 1, right);
+                    swap(ch, left, i);
+                }
+            }
+        }
+    }
+
+    private void swap(char[] ch, int left, int i) {
+        char tmp = ch[left];
+        ch[left] = ch[i];
+        ch[i] = tmp;
+    }
+
+    public static void print(ArrayList<String> arrayList){
+        for(String ch:arrayList){
+            System.out.println(ch);
+        }
+    }
+
+    public static void main(String[] args) {
+        Test6 test6=new Test6();
+        String exp="abcd";
+        print( test6.Permutation(exp));
+
+
+    }
+}
+
+
