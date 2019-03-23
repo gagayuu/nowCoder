@@ -1,0 +1,56 @@
+package nowcoder.fairy;
+
+/**
+ * 数组中出现次数超过一半的数字
+ * Author:gagayu
+ * Created:2019/3/23
+ */
+
+/*
+采用“阵地镇守”思想：
+第一个数字作为镇守士兵，count=1；
+遇到相同元素，count++;
+遇到不同元素，count--;当count减到0时，换下一个士兵镇守；
+循环下去，最后一个留下的士兵元素就可能是主元素；
+最后再加一层循环，看这个士兵元素个数是否大于数组个数一半。
+ */
+public class Test8 {
+    public int MoreThanHalfNum_Solution(int [] array) {
+        if(array.length==0){
+            return 0;
+        }
+        if(array.length==1){
+            return array[0];
+        }
+        int count=1;
+        int res=array[0];
+        for(int i=0;i<array.length;i++){
+            if(count==0){
+                res=array[i];
+                count=1;
+            }
+            if(array[i]==res){
+                count++;
+            }
+            if(array[i]!=res){
+                count--;
+
+            }
+
+        }
+        count=0;
+        for(int i=0;i<array.length;i++){
+            if(res==array[i]){
+                count++;
+            }
+        }
+        return count > array.length/2 ? res : 0;
+
+    }
+
+    public static void main(String[] args) {
+        Test8 test8=new Test8();
+        int res=test8.MoreThanHalfNum_Solution(new int[]{1,2,3,2,4,2,5,2,2});
+        System.out.println(res);
+    }
+}
