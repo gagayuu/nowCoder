@@ -1,0 +1,24 @@
+package nowcoder.fairy;
+
+/**
+ * 在一个字符串(0<=字符串长度<=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置, 如果没有则返回 -1（需要区分大小写）.
+ * Author:gagayu
+ * Created:2019/3/25
+ */
+public class Test11 {
+    public int FirstNotRepeatingChar(String str) {
+        char[] chars=str.toCharArray();
+        for(int i=0,j=chars.length;i<j;i++){
+            if(str.indexOf(chars[i])==str.lastIndexOf(chars[i])){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Test11 test11=new Test11();
+        int res=test11.FirstNotRepeatingChar("aAAbzzcCddeefzfkgCghhmiiba");
+        System.out.println(res);
+    }
+}
