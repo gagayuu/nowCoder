@@ -1,0 +1,44 @@
+package nowcoder.fairy;
+
+import java.util.ArrayList;
+
+/**
+ * 输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。
+ * Author:gagayu
+ * Created:2019/3/26
+ */
+
+/*
+左右加逼，既然是排好序的数组，这样的多组大的情况下：得到的相距最远的一组数即成乘积最小的
+ */
+public class Test12 {
+
+    public static ArrayList<Integer> FindNumbersWithSum(int[] array, int sum) {
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        int i = 0;
+        int j = array.length - 1;
+        while (i < j) {
+            if (array[i] + array[j] == sum) {
+                arrayList.add(array[i]);
+                arrayList.add(array[j]);
+                break;
+            }
+            if (array[i] + array[j] > sum) {
+                j--;
+            }
+            if (array[i] + array[j]< sum) {
+                i++;
+            }
+        }
+        return arrayList;
+    }
+
+    public static void main(String[] args) {
+
+        ArrayList<Integer> arrayList=FindNumbersWithSum(new int[]{1,2,3,4,5,6,7},8);
+        for(Integer l:arrayList){
+            System.out.println(l);
+        }
+    }
+
+}
