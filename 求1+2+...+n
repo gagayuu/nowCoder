@@ -1,0 +1,27 @@
+package nowcoder.fairy;
+
+/**
+ * 求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）
+ * Author:gagayu
+ * Created:2019/3/26
+ */
+
+/*
+不能使用关键字，就是用递归，&&的短路特性来解决。
+ */
+public class Test14 {
+    public int Sum_Solution(int n) {
+        int sum = n;
+
+       boolean flag=(n>0) && ((sum+= Sum_Solution(n - 1))>0);
+       return sum;
+
+    }
+
+    public static void main(String[] args) {
+        Test14 t =new Test14();
+        int res=t.Sum_Solution(10);
+        System.out.println(res);
+    }
+
+}
