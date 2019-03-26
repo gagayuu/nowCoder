@@ -1,0 +1,45 @@
+package nowcoder.fairy;
+
+/**
+ * 左旋转字符串
+ * Author:gagayu
+ * Created:2019/3/26
+ */
+
+/*
+经典的三次翻转问题：
+1、第一次翻转前n个字符
+2、第二次翻转n后面的字符
+3、第三次翻转整个字符串
+ */
+public class Test13 {
+    public String LeftRotateString(String str,int n) {
+
+        if(str.length()==0||str.length()<=1){return str;}
+        int left=0;
+        int right=str.length()-1;
+        String str1= reverse(str,left,n-1);
+        String str2= reverse(str1,n,right);
+        String res = reverse(str2,left,right);
+        return res;
+    }
+
+    private String reverse(String str, int left, int i) {
+        char[] chars=str.toCharArray();
+        while(left<i){
+            char tmp=chars[left];
+            chars[left]=chars[i];
+            chars[i]=tmp;
+            left++;
+            i--;
+        }
+        return String.valueOf(chars);
+    }
+
+    public static void main(String[] args) {
+        Test13 test13=new Test13();
+        String str="abcXYZdef";
+        String leftStr=test13.LeftRotateString(str,3);
+        System.out.println(leftStr);
+    }
+}
