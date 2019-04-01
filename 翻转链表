@@ -1,0 +1,38 @@
+package nowcoder.fairy;
+
+/**
+ * 输入一个链表，反转链表后，输出新链表的表头。
+ * Author:gagayu
+ * Created:2019/4/1
+ */
+
+/*
+null(pre) <-  1(next)->2->3->4->5 ->null
+null<-  1(pre)->2(next)->3->4->5  ->null
+null<-  1->2(pre)->3(next)->4->5  ->null
+null<-  1->2->3(pre)->4(next)->5  ->null
+null<-  1->2->3->4(pre)->5(next)  ->null
+null<-  1->2->3->4->5(pre)        ->null(next)
+
+ */
+public class Test20 {
+
+    public ListNode ReverseList(ListNode head) {
+
+        if(head==null||head.next==null){
+            return head;
+        }
+
+        ListNode pre=null;
+        ListNode next=head;
+
+        while(head!=null){
+            next=head.next;
+            head.next=pre;
+            pre=head;
+            head=next;
+
+        }
+        return pre;
+    }
+}
