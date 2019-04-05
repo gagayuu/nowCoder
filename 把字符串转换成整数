@@ -1,0 +1,38 @@
+package nowcoder.fairy;
+
+/**
+ * 把字符串转换成整数
+ * Author:gagayu
+ * Created:2019/4/5
+ */
+public class Test25 {
+    public int StrToInt(String str) {
+        if(str==null||str.trim().equals("")){return 0;}
+        char[] ch=str.toCharArray();
+        int index=0;
+        int num=0;
+        boolean flag=false;
+        if(ch[0]=='+'){
+            index++;
+        }
+        if(ch[0]=='-'){
+            flag=true;
+            index++;
+        }
+
+        for(int i=index;i<ch.length;i++){
+            if(ch[i]>'9'||ch[i]<'0'){
+                return 0;
+            }else{
+                num=num*10+ch[i]-'0';
+            }
+            if(num>Integer.MAX_VALUE||num<Integer.MIN_VALUE){
+                return 0;
+            }
+
+        }
+        return flag==true ? -num : num;
+
+    }
+
+}
