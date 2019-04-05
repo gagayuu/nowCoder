@@ -1,0 +1,30 @@
+package nowcoder.fairy;
+
+/**
+ * 圆圈中最后剩下的数
+ * Author:gagayu
+ * Created:2019/4/5
+ */
+public class Test24 {
+    public int LastRemaining_Solution(int n, int m) {
+        if(n<1||m<1){return -1;}
+        int[] array = new int[n];
+
+        //i:下标，一直在走，step:步数，count:人数
+        int i = -1, step = 0, count = n;
+        while (count > 0) {
+
+            if(i>=n){i=0;}  //模拟环
+            i++;
+            if(array[i]==-1){continue;}   //如果走到已经被删除的地方，直接跳过
+            step++;
+            if(step==m){
+                array[i]=-1;//将待删除的元素设为-1
+                step=0;
+                count--;
+            }
+
+        }
+        return i;
+    }
+}
