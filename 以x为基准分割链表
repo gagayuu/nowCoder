@@ -1,0 +1,62 @@
+/*
+编写代码，以给定值x为基准将链表分割成两部分，所有小于x的结点排在大于或等于x的结点之前。
+链表原有的数字顺序不变。
+
+*/
+
+package nowcoder.fairy;
+
+/**
+ * Author:gagayu
+ * Created:2019/4/6
+ */
+public class Test27 {
+
+    public ListNode partition(ListNode head, int v) {
+
+        if (head == null) {
+            return null;
+        }
+
+        ListNode smallhead = null;
+        ListNode bighead = null;
+        ListNode smallLast = null;
+        ListNode bigLast = null;
+
+        ListNode cur = head;
+        while (cur != null) {
+            
+
+            ListNode next = cur.next;
+            cur.next=null;
+            if (cur.val < v) {
+
+                //尾插
+                if (smallhead == null) {
+                    smallhead = cur;
+                } else {
+                    smallLast.next = cur;
+                }
+                //维护last
+                smallLast = cur;
+            } else {
+                if (bighead == null) {
+                    bighead = cur;
+                } else {
+                    bigLast.next = cur;
+                }
+                bigLast = cur;
+            }
+            cur = next;
+        }
+
+        //考虑其中链表有空的情况
+        if (smallhead == null) {
+            return bighead;
+        } else {
+            smallLast.next = bighead;
+
+            return smallhead;
+        }
+    }
+}
