@@ -1,0 +1,95 @@
+给定一个链表，每个节点包含一个额外增加的随机指针，该指针可以指向链表中的任何节点或空节点。
+
+要求返回这个链表的深拷贝。 
+
+ 
+ 
+ 
+ /*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node next;
+    public Node random;
+
+    public Node() {}
+
+    public Node(int _val,Node _next,Node _random) {
+        val = _val;
+        next = _next;
+        random = _random;
+    }
+};
+*/
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        clone(head);
+        copyRandom(head);
+        Node clone = split(head);
+        return clone;
+    }
+
+
+    //复制原链表结点，并把复制的结点对应链接到原链表结点后
+    private void clone(Node head) {
+
+        Node old = head;
+        while (old != null) {
+            Node clone = new Node();
+            Node next = old.next;
+            clone.val = old.val;
+            clone.next = old.next;
+            clone.random = null;
+            old.next = clone;
+            old = next;
+
+        }
+
+
+    }
+
+    //复制原链表的random引用对应到复制的结点
+    private void copyRandom(Node head) {
+        Node old = head;
+
+
+        while (old != null) {
+            Node clone = old.next;
+            if (old.random == null) {
+                clone.random = null;
+            } else {
+                clone.random = old.random.next;
+            }
+            old = clone.next;
+        }
+
+
+    }
+
+    private Node split(Node head) {
+        Node clone = null;
+        Node cloneLast = null;
+        Node old = head;
+
+        while (old!=null && old.next != null) {
+            Node cloneNext=old.next;
+            Node next=old.next.next;
+
+            if (clone == null) {
+                clone =cloneNext;
+            } else {
+                cloneLast.next = cloneNext;
+            }
+            cloneLast = cloneNext;
+            old.next=next;
+            old =next;
+
+        }
+
+        return clone;
+    }
+
+}
