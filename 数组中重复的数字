@@ -1,0 +1,110 @@
+package nowcoder.fairy.arrays;
+
+import java.util.Arrays;
+
+/**
+ * 数组中重复的数字
+ * 在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。
+ * 也不知道每个数字重复几次。请找出数组中任意一个重复的数字。
+ * Author:gagayu
+ * Created:2019/4/12
+ */
+public class Test32 {
+
+    //数组可修改
+    public boolean duplicate(int[] numbers, int length, int[] duplication) {
+        if (numbers == null || length <= 0) {
+            return false;
+        }
+
+
+        for (int i = 0; i < length; i++) {
+            while (numbers[i] != i) {
+                if (numbers[i] == numbers[numbers[i]]) {
+                    duplication[0] = numbers[i];
+                    return true;
+                }
+                int tmp = numbers[i];
+                numbers[i] = numbers[tmp];
+                numbers[tmp] = tmp;
+            }
+        }
+        return false;
+    }
+
+    //数组不可修改
+    public boolean duplicate2(int[] numbers, int length, int[] duplication) {
+
+        if (numbers == null || length <= 0) {
+            return false;
+        }
+
+        //辅助数组，需要额外的辅助空间O(n)
+        int[] b = new int[length];
+
+        for (int i = 0; i < length; i++) {
+            if (b[numbers[i]] == 0) {
+                b[numbers[i]]++;
+
+            } else {
+                duplication[0] = numbers[i];
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    //以时间换空间，利用二分查找的思想，判断区域内数字个数是否和应有个数一致，时间复杂度O(nlog(n)),空间复杂度O(1)，以时间换空间
+    //此方法存在缺陷，不能保证找出所有的重复数字
+    public int  duplicate3(int[] numbers, int length) {
+        if (numbers == null || length <= 0) {
+            return -1;
+        }
+        Arrays.sort(numbers);
+        int start = 1;
+        int end = length - 1;
+        while (start <= end) {
+            int middle = ((end - start) >> 1) + start;
+            int count = count(numbers, length, start, end);
+
+            if (start == end) {
+                if (count > 1) {
+                   return start;
+                } else {
+                    break;
+                }
+            }
+
+
+            if (count > (middle - start + 1)) {
+                end = middle;
+            } else {
+                start = middle + 1;
+            }
+
+
+        }
+
+        return -1;
+
+    }
+
+    private int count(int[] numbers, int length, int start, int end) {
+
+        if (numbers == null) {
+            return -1;
+        }
+
+        int count = 0;
+        for (int i = 0; i < length; i++) {
+            if (numbers[i] >= start && numbers[i] <= end) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+
+}
