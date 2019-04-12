@@ -1,0 +1,45 @@
+package nowcoder.fairy.list;
+
+/**
+ * 输入两个链表，找出它们的第一个公共结点。
+ * Author:gagayu
+ * Created:2019/4/12
+ */
+public class Test33 {
+
+    public ListNode FindFirstCommonNode(ListNode pHead1, ListNode pHead2) {
+        int len1=listLen(pHead1);
+        int len2=listLen(pHead2);
+        int diff=len1-len2;
+        ListNode fast=pHead1;
+        ListNode slow=pHead2;
+        if(diff<0){
+            diff*=(-1);
+            fast=pHead2;
+            slow=pHead1;
+        }
+
+        for(int i=0;i<diff;i++) {
+            fast = fast.next;
+        }
+
+        while(fast!=null && slow!=null && fast!=slow){
+            fast=fast.next;
+            slow=slow.next;
+        }
+
+        return fast;
+
+
+    }
+
+    private int listLen(ListNode pHead) {
+        ListNode cur=pHead;
+        int len=0;
+        while(cur!=null){
+            cur=cur.next;
+            len++;
+        }
+       return len;
+    }
+}
