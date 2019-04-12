@@ -1,0 +1,42 @@
+package nowcoder.fairy.list;
+
+/**
+ * 链表中环的入口结点
+ * Author:gagayu
+ * Created:2019/4/12
+ */
+
+/*
+题目给出的链表中有环，快慢指针一个走两步一个走一步必然会在一点相遇。
+让一个指针留在相遇点，一个回到头结点。
+两个指针同步一步一步走必然会在入口结点处相遇。
+ */
+public class Test34 {
+    public ListNode EntryNodeOfLoop(ListNode pHead) {
+        if(pHead==null){
+            return null;
+        }
+
+        ListNode fast = pHead;
+        ListNode slow = pHead;
+
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+
+            if (fast == slow) {
+                fast = pHead;
+                while (fast != slow) {
+                    fast = fast.next;
+                    slow = slow.next;
+                }
+                return fast;
+
+            }
+        }
+
+        return null;
+
+
+    }
+}
