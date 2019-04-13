@@ -1,0 +1,205 @@
+package ds.myBinaryTree;
+
+import javax.swing.tree.TreeNode;
+
+/**
+ * Author:gagayu
+ * Created:2019/4/13
+ */
+public class Tree {
+
+    private static class BTree {
+        char value;
+        BTree left;
+        BTree right;
+
+        public BTree(char value) {
+            this.value = value;
+        }
+    }
+
+    /*
+    求二叉树的高度
+     */
+    private static int height(BTree root) {
+        if (root == null) {
+            return 0;
+        } else if (root.left == null && root.right == null) {
+            return 1;
+        }
+
+        return Math.max(height(root.left), height(root.right)) + 1;
+
+    }
+
+    /*
+    根据给出的值查找二叉树对应结点
+     */
+    private static BTree find(BTree root, char v) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.value == v) {
+            return root;
+        }
+
+        BTree res = find(root.left, v);
+        if (res != null) {
+            return res;
+        }
+
+        res = find(root.right, v);
+        if (res != null) {
+            return res;
+        }
+        return null;
+    }
+
+    /*
+    镜像二叉树
+     */
+    private boolean isMirror(BTree p, BTree q) {
+
+        if (p == null && q == null) {
+            return true;
+        }
+        if (p == null || q == null) {
+            return false;
+        }
+        return p.value == q.value
+                && isMirror(p.left, q.right)
+                && isMirror(p.right, q.left);
+    }
+
+    /*
+    前序遍历二叉树
+     */
+    private static void preOrder(BTree root) {
+        if (root != null) {
+            System.out.println(root.value + " ");
+            preOrder(root.left);
+            preOrder(root.right);
+        }
+    }
+
+    /*
+    中序遍历二叉树
+     */
+    private static void inOrder(BTree root) {
+        if (root != null) {
+            preOrder(root.left);
+            System.out.println(root.value + " ");
+            preOrder(root.right);
+        }
+    }
+
+    /*
+    后序遍历二叉树
+     */
+
+    private static void postOrder(BTree root) {
+        if (root != null) {
+            preOrder(root.left);
+            preOrder(root.right);
+            System.out.println(root.value + " ");
+        }
+    }
+
+    /*
+    查找第k层的结点个数
+     */
+    private int KLevel(BTree root, int k) {
+        if (root == null) {
+            return 0;
+        }
+        if (k == 1) {
+            return 1;
+        }
+        return KLevel(root.left, k - 1) + KLevel(root.right, k - 1);
+    }
+
+    /*
+    相同的树
+     */
+    public boolean isSameTree(BTree p, BTree q) {
+        if (p == null && q == null) {
+            return true;
+        }
+        if (p == null || q == null) {
+            return false;
+        }
+        if (p.value == q.value) {
+            return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        } else {
+            return false;
+        }
+    }
+
+    /*
+    另一个树的子树
+     */
+    public boolean isSubtree(BTree s, BTree t) {
+        if(s==null && t==null){
+            return true;
+        }
+        if(s==null || t==null){
+            return false;
+        }
+
+        if(isSame(s,t)){
+            return true;
+        }else{
+            return isSubtree(s.left,t) || isSubtree(s.right,t);
+        }
+    }
+
+    public boolean isSame(BTree s,BTree t){
+        if(s==null && t==null){
+            return true;
+        }
+        if(s==null || t==null){
+            return false;
+        }
+
+        if(s.value==t.value){
+            return isSame(s.left,t.left) && isSame(s.right,t.right);
+        }else{
+            return false;
+        }
+    }
+
+
+    //对称的树
+    public boolean isSymmetric(BTree root) {
+        if(root==null){
+            return true;
+        }
+        if(root.left==null && root.right==null){
+            return true;
+        }
+
+        return isSame(root.left,root.right);
+
+    }
+
+//    public boolean isSame(BTree p,BTree q){
+//
+//        if(p==null && q==null){
+//            return true;
+//        }
+//        if(p==null || q==null){
+//            return false;
+//        }
+//        if(p.value==q.value){
+//            return isSame(p.left,q.right) && isSame(p.right,q.left);
+//        }
+//        return false;
+    }
+
+
+
+
+
+}
+
