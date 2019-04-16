@@ -1,0 +1,50 @@
+package nowcoder.fairy.tree;
+
+/**
+ * 二叉树的下一个节点
+ * Author:gagayu
+ * Created:2019/4/15
+ */
+public class Test36 {
+    public TreeLinkNode GetNext(TreeLinkNode pNode) {
+        if (pNode == null) {
+            return null;
+        }
+
+        TreeLinkNode pCur=pNode;
+        //如果结点有右子树，下一个结点是它右子树的最左结点
+        if (pCur.right != null) {
+            pCur = pCur.right;
+            while (pCur.left != null) {
+                pCur = pCur.left;
+            }
+            return pCur;
+
+        }
+
+        //如果结点没有右子树有父结点：
+        // 若它是它父结点的左孩子，则返回父结点；
+        // 如果它是父结点的右孩子，则一直向上找，直到它是左孩子，返回其父结点
+        while(pCur.next!=null){
+            if(pCur==pCur.next.left){
+                return pCur.next;
+            }
+            pCur=pCur.next;
+        }
+//        else if (pCur.next != null) {
+//
+//            TreeLinkNode pCurParent = pCur.next;
+//            while (pCur != pCurParent.left) {
+//
+//                    pCur = pCur.next;
+//                    pCurParent = pCurParent.next;
+//
+//            }
+//         return pCurParent;
+//
+//
+//        }
+
+        return null;
+    }
+}
