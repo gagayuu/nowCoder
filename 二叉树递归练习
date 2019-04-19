@@ -140,48 +140,36 @@ public class Tree {
     另一个树的子树
      */
     public boolean isSubtree(BTree s, BTree t) {
-        if(s==null && t==null){
-            return true;
-        }
-        if(s==null || t==null){
+
+        //两个结点都不是空时才进行比较
+        if (s == null || t == null) {
             return false;
         }
 
-        if(isSame(s,t)){
+        if (isSame(s, t)) {
             return true;
-        }else{
-            return isSubtree(s.left,t) || isSubtree(s.right,t);
+        } else {
+            return isSubtree(s.left, t) || isSubtree(s.right, t);
         }
     }
 
-    public boolean isSame(BTree s,BTree t){
-        if(s==null && t==null){
+    public boolean isSame(BTree s, BTree t) {
+        //t比较完了，返回true
+        if ( t == null) {
             return true;
         }
-        if(s==null || t==null){
+        //s先比较完，直接返回false
+        if (s == null ) {
             return false;
         }
 
-        if(s.value==t.value){
-            return isSame(s.left,t.left) && isSame(s.right,t.right);
-        }else{
+        if (s.value == t.value) {
+            return isSame(s.left, t.left) && isSame(s.right, t.right);
+        } else {
             return false;
         }
     }
 
-
-    //对称的树
-    public boolean isSymmetric(BTree root) {
-        if(root==null){
-            return true;
-        }
-        if(root.left==null && root.right==null){
-            return true;
-        }
-
-        return isSame(root.left,root.right);
-
-    }
 
 //    public boolean isSame(BTree p,BTree q){
 //
