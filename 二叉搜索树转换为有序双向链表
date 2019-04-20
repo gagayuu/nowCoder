@@ -1,0 +1,44 @@
+package nowcoder.fairy.tree;
+
+/**
+ * 二叉搜索树转换为有序双线链表
+ * Author:gagayu
+ * Created:2019/4/20
+ */
+public class Test40 {
+    private static TreeNode pre = null;
+    private static TreeNode head = null;
+
+    public TreeNode Convert(TreeNode pRootOfTree) {
+
+        pre = null;
+        head = null;
+        inSearchTree(pRootOfTree);
+        return head;
+    }
+
+    private void inSearchTree(TreeNode root) {
+        if (root != null) {
+            inSearchTree(root.left);
+            treeToLink(root);
+            inSearchTree(root.right);
+        }
+
+    }
+
+
+    private void treeToLink(TreeNode root) {
+
+        root.left = pre;
+        if (pre != null) {
+            pre.right = root;
+        } else {
+            head = root;
+        }
+        pre = root;
+
+
+    }
+
+
+}
