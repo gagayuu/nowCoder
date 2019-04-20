@@ -1,0 +1,61 @@
+/*
+    非递归后序遍历二叉树
+     */
+    private static void postOrderNR(BTree root) {
+        Stack<BTree> stack = new Stack<>();
+        BTree cur = root;
+        BTree last = null;
+        while (!stack.empty() || cur != null) {
+
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+           BTree top = stack.peek();
+            if (top.right == null) {
+                System.out.print(top.value);
+                stack.pop();
+                last = top;
+            } else if (top.right != null && top.right == last) {
+                System.out.print(top.value);
+                stack.pop();
+                last = top;
+            } else {
+                cur = top.right;
+            }
+        }
+    }
+
+    /*
+    非递归前序遍历二叉树
+     */
+    private static void preOrderNR(BTree root) {
+        Stack<BTree> stack = new Stack<>();
+        BTree cur = root;
+        while (!stack.empty() || cur != null) {
+            while(cur!=null){
+                System.out.print(cur.value);
+                stack.push(cur);
+                cur=cur.left;
+            }
+            BTree top=stack.pop();
+            cur=top.right;
+        }
+    }
+
+    /*
+    非递归中序遍历
+     */
+    private static void inOrderNR(BTree root) {
+        Stack<BTree> stack = new Stack<>();
+        BTree cur = root;
+        while (!stack.empty() || cur != null) {
+            while(cur!=null){
+                stack.push(cur);
+                cur=cur.left;
+            }
+            BTree top=stack.pop();
+            System.out.print(top.value);
+            cur=top.right;
+        }
+    }
