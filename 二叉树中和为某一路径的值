@@ -1,0 +1,37 @@
+package nowcoder.fairy.tree;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+    /*
+    二叉树中和为某一值的路径
+     */
+
+    private ArrayList<ArrayList<Integer>> lists = new ArrayList<>();
+    private ArrayList<Integer> list = new ArrayList<>();
+
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
+        if (root == null) {
+            return lists;
+        }
+        list.add(root.val);
+        target -= root.val;
+        if (target == 0 && root.left == null && root.right == null) {
+            lists.add(new ArrayList<>(list));
+        }
+//        if(target>0){
+        if (root.left != null) FindPath(root.left, target);
+        if (root.right != null) FindPath(root.right, target);
+        list.remove(list.size() - 1);
+//        }
+        return lists;
+
+
+    }
+
+    public static void main(String[] args) {
+        int[] a = new int[]{2, 1};
+        boolean res = VerifySquenceOfBST(a);
+        System.out.println(res);
+    }
+}
