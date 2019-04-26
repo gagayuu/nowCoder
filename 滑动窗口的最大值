@@ -1,0 +1,53 @@
+package nowcoder.fairy.other;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+/**
+ * Author:gagayu
+ * Created:2019/4/26
+ */
+public class Test0426 {
+
+    /*
+    滑动窗口中的最大值
+
+    利用一个双端队列，队列中存入数字的下标，当当前队首元素下标等于（要处理的数字下标-size）时，这个数字已经从窗口中滑出，可以从队列中删除。
+    一直保证队列中的队首元素存入的是当前滑动窗口的最大值。
+     */
+    public static ArrayList<Integer> maxInWindows(int [] num, int size)
+    {
+        ArrayList<Integer> arrayList=new ArrayList<>();
+        LinkedList<Integer> dQue=new LinkedList<>();
+        int len=num.length;
+        if(len==0 || size>len || size<=0){
+            return arrayList;
+        }
+        for(int i=0;i<len;i++){
+
+            //比较队列中最后一个元素和数组中元素大小，如果数组元素大，队列中删除小元素
+            while(!dQue.isEmpty() && num[dQue.peekLast()]<num[i]){
+                dQue.pollLast();
+            }
+            dQue.addLast(i);
+            if(dQue.peekFirst()==i-size){
+                dQue.pollFirst();
+            }
+            //从第三个数字起才是一个滑动窗口
+            if(i>=size-1){
+                arrayList.add(num[dQue.peekFirst()]);
+            }
+        }
+        return arrayList;
+
+    }
+
+    public static void main(String[] args) {
+        int[] test=new int[]{2,3,4,2,6,2,5,1};
+        ArrayList<Integer> res=maxInWindows(test,3);
+        for(int i:res){
+            System.out.print(i);
+        }
+    }
+
+}
