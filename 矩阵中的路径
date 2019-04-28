@@ -1,0 +1,47 @@
+package nowcoder.fairy.arithmetic;
+
+/**
+ * Author:gagayu
+ * Created:2019/4/28
+ */
+public class Test0428 {
+    /*
+    矩阵中的路径
+     */
+    public boolean hasPath(char[] matrix, int rows, int cols, char[] str) {
+        boolean[] flag = new boolean[matrix.length];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (find(matrix, rows, cols, i, j, 0, str, flag)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean find(char[] matrix, int rows, int cols, int i, int j, int k, char[] str, boolean[] flag) {
+        int index = i * cols + j;
+        //下标越界,矩阵值与字符数组中值不一致，回到已经走过的矩阵位置，这三种情况直接返回false
+        if (i < 0 || j < 0 || i >= rows || j >= cols || matrix[index] != str[k] || flag[index]) {
+            return false;
+        }
+        //下标等于字符数组最后一个下标，说明已经找到所有字符
+        if (k == str.length - 1) {
+            return true;
+        }
+        //标志走过的位置为true
+        flag[index] = true;
+        //查找此位置上下左右是不是下一个字符
+        if (find(matrix, rows, cols, i - 1, j, k + 1, str, flag)
+                || find(matrix, rows, cols, i + 1, j, k + 1, str, flag)
+                || find(matrix, rows, cols, i, j - 1, k + 1, str, flag)
+                || find(matrix, rows, cols, i, j + 1, k + 1, str, flag)) {
+            return true;
+        }
+        //没找到，还原这个位置的标志，继续寻找下一条路径
+        flag[index] = false;
+        return false;
+
+    }
+}
