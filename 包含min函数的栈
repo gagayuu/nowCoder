@@ -1,0 +1,37 @@
+package nowcoder.fairy.stackandqueue;
+
+import java.util.Stack;
+
+/**
+ * Author:gagayu
+ * Created:2019/5/7
+ */
+public class Test0507 {
+    /*
+    定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））。
+     */
+    Stack<Integer> data=new Stack<>();
+    //构造一个辅助栈，辅助栈每次压入其栈顶和将要压到数据栈的较小的那一个元素
+    Stack<Integer> min=new Stack<>();
+    public void push(int node) {
+        data.push(node);
+        if(min.empty() || node<min.peek()){
+            min.push(node);
+        }else{
+            min.push(min.peek());
+        }
+    }
+
+    public void pop() {
+        data.pop();
+        min.pop();
+    }
+
+    public int top() {
+        return data.peek();
+    }
+
+    public int min() {
+        return min.peek();
+    }
+}
