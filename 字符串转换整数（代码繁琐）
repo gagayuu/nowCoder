@@ -1,0 +1,68 @@
+class Solution {
+   public static int myAtoi(String str) {
+        str = str.trim();
+        if (str == null || str.length() == 0) {
+            return 0;
+        }
+        char[] chars = str.toCharArray();
+        boolean flag = true;
+        int index = 0;
+
+        StringBuilder sb = new StringBuilder();
+        if (chars.length > 0 && chars[0] == '-') {
+            flag = false;
+            index++;
+            sb.append(chars[0]);
+        }
+        if (chars.length > 0 && chars[0] == '+') {
+            index++;
+        }
+
+
+        for (int i = index; i < chars.length; i++) {
+            if (chars[i] >= '0' && chars[i] <= '9') {
+                sb.append(chars[i]);
+
+            }
+
+            if (chars[i] < '0' || chars[i] > '9') {
+                try {
+
+                    if(chars[0]!='-' && chars[0]=='+' && sb.length()!=0 ){
+                        return Integer.parseInt(sb.toString());
+                    }else if (chars[0]=='-' &&sb.length()>1 ) {
+                        return Integer.parseInt(sb.toString());
+
+                    }else if(sb.length()==0 || (sb.length()==1 && chars[0]=='-' )||(sb.length()==0 && chars[0]=='-')){
+                        return 0;
+                    }
+                    return Integer.parseInt(sb.toString());
+                } catch (NumberFormatException e) {
+                    if (flag == true) {
+                        return Integer.MAX_VALUE;
+                    } else {
+                        return Integer.MIN_VALUE;
+                    }
+                }
+
+            }
+
+        }
+
+        try {
+            if (chars.length==1 && (chars[0] == '-' || chars[0] == '+')) {
+                return 0;
+            }
+
+            int test = Integer.parseInt(sb.toString());
+        } catch (NumberFormatException e) {
+            if (flag == true) {
+                return Integer.MAX_VALUE;
+            } else {
+                return Integer.MIN_VALUE;
+            }
+        }
+        return flag == false ? Integer.parseInt(sb.toString()) : Integer.parseInt(sb.toString());
+    }
+
+}
