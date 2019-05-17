@@ -1,0 +1,18 @@
+//水平扫描法
+
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs==null || strs.length==0){return "";}
+        String tmp=strs[0];
+        for(int i=1;i<strs.length;i++){
+            while(strs[i].indexOf(tmp) != 0){ //子串第一次出现的不是零的话，就不是公共前缀，当tmp不是子串时，裁剪tmp
+                tmp=tmp.substring(0,tmp.length()-1); 
+            }
+            if(tmp==null){
+                return  "";
+            }
+        }
+        return tmp;
+    }
+}
