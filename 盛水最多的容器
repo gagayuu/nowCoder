@@ -1,0 +1,16 @@
+//双指针法，一开始两个指针分别位于最左和最右，永远是高度短的那个直针才移动，否则面积会永远限制于高度短的一边
+
+class Solution {
+    public int maxArea(int[] height) {
+        int l=0,r=height.length-1,max=0;
+        while(l<r){
+            max=Math.max(max,Math.min(height[l],height[r])*(r-l));
+            if(height[l]<height[r]){
+                l++;
+            }else{
+                r--;
+            }
+        }
+        return max;
+    }
+}
