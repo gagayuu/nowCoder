@@ -1,0 +1,33 @@
+import java.util.*;
+public class Main {
+    public static String countStr(String str){
+        int count=0;
+        int max=0;
+         int endindex=0;
+        char[] chs=str.toCharArray(); 
+        for(int i=0;i<chs.length;i++){
+            
+            if(chs[i]>='0' && chs[i]<='9'){
+                count++;
+               
+            }else{
+                count=0;
+            }
+            if(count>max){
+                max=count;
+                endindex=i;
+                
+            }
+            
+        }
+        return str.substring(endindex-max+1,endindex+1);
+    }
+    
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String str=sc.nextLine();
+       
+            System.out.println(countStr(str));
+        
+    }
+}
