@@ -1,0 +1,29 @@
+输入描述:
+输入两个字符串数字
+
+输出描述:
+输出相加后的结果，string型
+
+示例1
+输入
+99999999999999999999999999999999999999999999999999
+1
+输出
+100000000000000000000000000000000000000000000000000
+
+import java.util.*;
+import java.math.BigInteger;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            String a=sc.next();
+            String b=sc.next();
+            BigInteger num1=new BigInteger(a);
+            BigInteger num2=new BigInteger(b);
+            System.out.println(num1.add(num2));
+            
+        }
+        
+    }
+}
