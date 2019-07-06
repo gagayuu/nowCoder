@@ -1,0 +1,17 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            int n=sc.nextInt();
+            int value=n*n;
+            String strn=String.valueOf(n);
+            String str=String.valueOf(value);
+            if(str.substring(1,str.length()).equals(strn)){
+                System.out.println("Yes!");
+            }else{
+                System.out.println("No!");
+            }
+        }
+    }
+}
