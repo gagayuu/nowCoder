@@ -1,0 +1,65 @@
+题目描述
+给定一个有n个正整数的数组A和一个整数sum,求选择数组A中部分数字和为sum的方案数。
+当两种选取方案有一个数字的下标不一样,我们就认为是不同的组成方案。
+输入描述:
+输入为两行:
+ 第一行为两个正整数n(1 ≤ n ≤ 1000)，sum(1 ≤ sum ≤ 1000)
+ 第二行为n个正整数A[i](32位整数)，以空格隔开。
+输出描述:
+输出所求的方案数
+示例1
+输入
+5 15 5 5 10 2 3
+输出
+4
+
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+            int n=sc.nextInt();
+            int sum=sc.nextInt();
+            int[] A=new int[n];
+            for(int i=0;i<n;i++){
+                A[i]=sc.nextInt();
+            }
+            System.out.println(subset(A,n,sum));
+        
+        
+    }
+    
+    //法一：递归
+     public static int subset(int[] A,int i,int sum){
+        if(sum==0){
+            return 1;
+        }
+        if(i==0){
+            if(A[i]==sum){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        if(A[i]>sum){
+            return  subset(A,i-1,sum);
+        }
+            
+        return subset(A,i-1,sum-A[i])+subset(A,i-1,sum);
+        
+    }
+
+    //法二：动归，01背包
+    public static long subset(int[] A,int n,int sum){
+        long[] dp=new long[sum+1];
+        dp[0]=1;
+        for(int i=0;i<n;i++){
+            for(int j=sum;j>=0;j--){
+                if(j>=A[i]){
+                 dp[j]+=dp[j-A[i]];
+                }
+            }
+        }
+        return dp[sum];
+    }
+   
+}
