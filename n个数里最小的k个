@@ -1,0 +1,60 @@
+题目描述
+找出n个数里最小的k个
+输入描述:
+每个测试输入包含空格分割的n+1个整数，最后一个整数为k值,n
+不超过100。
+输出描述:
+输出n个整数里最小的k个数。升序输出
+示例1
+输入
+3 9 6 8 -10 7 -11 19 30 12 23 5
+输出
+-11 -10 3 6 7
+
+
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            String str=sc.nextLine();
+            String[] strs=str.split(" ");
+            int[] array=new int[strs.length-1];
+            for(int i=0;i<strs.length-1;i++){
+                array[i]=Integer.parseInt(strs[i]);
+            }
+
+            int k=Integer.parseInt(strs[strs.length-1]);
+            int left=0;
+            int right=array.length-1;
+            int pivot=partition(array,left,right);
+            while(pivot!=k){
+                if(pivot<k){
+                    left=pivot+1;
+                    pivot=partition(array,left,right);
+                }else{
+                    right=pivot-1;
+                    pivot=partition(array,left,right);
+                }
+            }
+            Arrays.sort(array,0,k);
+            for(int i=0;i<k;i++){
+                System.out.print(i==k-1 ? array[i] : array[i]+" ");
+        }
+      }
+    }
+
+   public static int partition(int[] array,int left,int right){
+        int begin=left,end=right;
+        int key=array[begin];
+        while(begin<end){
+            while(begin<end && array[begin]<key) begin++;
+            array[end]=array[begin];
+            while(begin<end && array[end]>=key) end--;
+            array[begin]=array[end];
+        }
+        array[begin]=key;
+        return begin;
+    }
+}
