@@ -1,0 +1,23 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+            while(sc.hasNext()){
+                String str=sc.nextLine();
+                StringBuilder sb=new StringBuilder();
+                    if(str.contains("_")){
+                        String[] strs=str.split("_");
+                        sb.append(strs[0]);
+                        for(int i=1;i<strs.length;i++){
+                            char c=strs[i].charAt(0);
+                            char cc=(char)(c-32);
+                            sb.append(cc);
+                            sb.append(strs[i].substring(1));
+                        }
+                    }else{
+                        sb.append(str);
+                    }
+                System.out.println(sb.toString());
+            }
+        }
+    }
